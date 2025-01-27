@@ -49,7 +49,7 @@ function redirectWithStyle($message, $redirectUrl)
                 margin-top: 15px;
             }
             .button-group a {
-                background: #a62346; /* Verde para autorizar */
+                background: #a62346;
                 margin-left: 10px;
             }
             .button-group a:hover {
@@ -72,7 +72,6 @@ function redirectWithStyle($message, $redirectUrl)
     exit();
 }
 
-
 // Verificar si el número de control está en la sesión
 if (isset($_SESSION['num_con'])) {
     $num_con = $_SESSION['num_con'];
@@ -84,7 +83,7 @@ if (isset($_SESSION['num_con'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-
+    // Verificar si se encontraron datos del usuario
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         $nombre = $user['nombre'];
@@ -94,7 +93,10 @@ if (isset($_SESSION['num_con'])) {
         $ano_egre = $user['ano_egre'];
         $estado = trim($user['estado']); // Elimina espacios al inicio y al final
 
-
+        // Si el campo 'carrera' está vacío, redirigir con mensaje
+        if (empty($carrera)) {
+            redirectWithStyle("Por favor, completa tu registro antes de acceder a este apartado.", "registro.php");
+        }
 
         // Verificar si se presionó el botón de descarga
         if (isset($_POST['descargar'])) {
@@ -115,6 +117,7 @@ if (isset($_SESSION['num_con'])) {
         $_SESSION['ano_egre'] = $ano_egre;
 
     } else {
+        // Si no se encuentran datos del usuario, redirigir con el mensaje
         redirectWithStyle("No se encontraron tus datos en el sistema. Completa el registro para continuar.", "registro.php");
     }
 } else {
@@ -131,6 +134,7 @@ echo 'var carrera = "' . htmlspecialchars($carrera, ENT_QUOTES, 'UTF-8') . '";';
 echo 'var ano_egre = "' . htmlspecialchars($ano_egre, ENT_QUOTES, 'UTF-8') . '";';
 echo '</script>';
 ?>
+
 
 
 <!DOCTYPE html>
@@ -358,10 +362,10 @@ echo '</script>';
 <input type="text" value="<?php echo isset($_SESSION['ap_m']) ? htmlspecialchars($_SESSION['ap_m']) : ''; ?>" name="ap_m" readonly>
 
 <label for="carrera">Carrera</label>
-<input type="text" value="<?php echo isset($_SESSION['carrera']) ? htmlspecialchars($_SESSION['carrera']) : ''; ?>" name="carrera" readonly>
+<input type="text" value="<?php echo isset($_SESSION['carrera']) ? htmlspecialchars($_SESSION['carrera']) : ''; ?>" name="carrera" readonly placeholder= "Realiza el registro para mostrar tu informacion">
 
 <label for="ano_egre">Año de Egreso</label>
-<input type="text" value="<?php echo isset($_SESSION['ano_egre']) ? htmlspecialchars($_SESSION['ano_egre']) : ''; ?>" name="ano_egre" readonly>
+<input type="text" value="<?php echo isset($_SESSION['ano_egre']) ? htmlspecialchars($_SESSION['ano_egre']) : ''; ?>" name="ano_egre" readonly  placeholder= "Realiza el registro para mostrar tu informacion">
 
 
 
@@ -369,7 +373,7 @@ echo '</script>';
   <form method="POST" action="descargar.php">
 
   <div class="button-group">
-    <a href="escoger_archivo_credencial.php" class="boton-foto" target="_blank">Foto del Egresado (En Formatos PNG)</a>
+    <a href="escoger_archivo_credencial.php" class="boton-foto" >Foto del Egresado (En Formatos PNG)</a>
     <button type="submit" name="descargar" class="boton-crede">Descargar Credencial</button>
   </div>
 

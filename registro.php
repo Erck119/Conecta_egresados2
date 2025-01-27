@@ -16,28 +16,56 @@ if (isset($_SESSION['num_con'])) {
     $carrera = '';
     $ano_egre = '';
 
-    // Realiza la consulta a la base de datos
-    $query = "SELECT nombre, ap_p, ap_m, sexo, num_con, email_1, tel_1, tel_2, cedula, carrera, ano_egre FROM datos WHERE num_con = ?";
+    // Realiza la consulta para verificar si el usuario ya existe en la base de datos
+    $query = "SELECT * FROM datos WHERE num_con = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $num_con);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        // Si existe, obtenemos los datos existentes
         $row = $result->fetch_assoc();
         $nombre = $row['nombre'];
         $ap_p = $row['ap_p'];
         $ap_m = $row['ap_m'];
-        $sexo = $row ['sexo'];
-        $num_con = $row['num_con'];
+        $sexo = $row['sexo'];
         $email1 = $row['email_1'];
         $tel1 = $row['tel_1'];
         $tel2 = $row['tel_2'];
         $cedula = $row['cedula'];
         $carrera = $row['carrera'];
         $ano_egre = $row['ano_egre'];
+
+        // Actualizamos los datos si ya existen
+        $updateQuery = "UPDATE datos 
+                        SET nombre = ?, ap_p = ?, ap_m = ?, sexo = ?, email_1 = ?, tel_1 = ?, tel_2 = ?, cedula = ?, carrera = ?, ano_egre = ?
+                        WHERE num_con = ?";
+        $stmtUpdate = $conn->prepare($updateQuery);
+        $stmtUpdate->bind_param("ssssssssssi", $nombre, $ap_p, $ap_m, $sexo, $email1, $tel1, $tel2, $cedula, $carrera, $ano_egre, $num_con);
+
+        if ($stmtUpdate->execute()) {
+            echo "Datos actualizados correctamente.";
+        } else {
+            echo "Error al actualizar los datos: " . $conn->error;
+        }
+
+        $stmtUpdate->close();
     } else {
-        echo "No se encontraron datos del usuario.";
+        // Si el usuario no existe, le asignamos datos vacíos y realizamos un INSERT
+        // (Aquí puedes usar valores predeterminados si lo prefieres)
+        $insertQuery = "INSERT INTO datos (num_con, nombre, ap_p, ap_m, sexo, email_1, tel_1, tel_2, cedula, carrera, ano_egre)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmtInsert = $conn->prepare($insertQuery);
+        $stmtInsert->bind_param("ssssssssssi", $num_con, $nombre, $ap_p, $ap_m, $sexo, $email1, $tel1, $tel2, $cedula, $carrera, $ano_egre);
+
+        if ($stmtInsert->execute()) {
+            echo "Nuevo usuario registrado correctamente.";
+        } else {
+            echo "Error al registrar al usuario: " . $conn->error;
+        }
+
+        $stmtInsert->close();
     }
 
     $stmt->close();
@@ -297,21 +325,21 @@ if (isset($_SESSION['num_con'])) {
 
 <div class="mb-3">
     <label for="nombre" class="form-label">Nombre(s)</label>
-    <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" class="form-control" readonly>
+    <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" class="form-control" >
 </div>
 
 <div class="mb-3">
     <label for="ap_p" class="form-label">Apellido Paterno</label>
-    <input type="text" id="ap_p" name="ap_p" value="<?php echo htmlspecialchars($ap_p); ?>" class="form-control" readonly>
+    <input type="text" id="ap_p" name="ap_p" value="<?php echo htmlspecialchars($ap_p); ?>" class="form-control" >
 </div>
 <div class="mb-3">
     <label for="ap_m" class="form-label">Apellido Materno</label>
-    <input type="text" id="ap_m" name="ap_m" value="<?php echo htmlspecialchars($ap_m); ?>" class="form-control" readonly>
+    <input type="text" id="ap_m" name="ap_m" value="<?php echo htmlspecialchars($ap_m); ?>" class="form-control" >
 </div>
 
 <div class="mb-3">
     <label for="ap_m" class="form-label">Sexo</label>
-    <select  id="sexo" name="sexo"  class="form-select" readonly>
+    <select  id="sexo" name="sexo"  class="form-select" >
     <option value=""></option>
         <option value="Masculino" <?php echo ($sexo == "Masculino") ? 'selected' : ''; ?>>Masculino</option>
         <option value="Femenino" <?= $sexo == 'Femenino' ? 'selected' : ''; ?>>Femenino</option>
@@ -320,19 +348,19 @@ if (isset($_SESSION['num_con'])) {
 </div>
 <div class="input-group">
             <label for="tel_1">Celular</label>
-            <input type="tel" id="tel_1" name="tel_1" placeholder="Número de 10 dígitos" required>
+            <input type="tel" id="tel_1" name="tel_1" value="<?php echo htmlspecialchars($tel1); ?>" placeholder="Número de 10 dígitos" required >
             <span id="icon_tel1" class="status-icon">✔</span>
         </div>
         <!-- Celular Alternativo -->
         <div class="input-group">
             <label for="tel_2">Celular Alternativo</label>
-            <input type="tel" id="tel_2" name="tel_2" placeholder="Opcional, 10 dígitos">
+            <input type="tel" id="tel_2" name="tel_2" value="<?php echo htmlspecialchars($tel2); ?>" placeholder="Número de 10 dígitos"  required >
             <span id="icon_tel2" class="status-icon">✔</span>
         </div>
         <!-- Correo Electrónico -->
         <div class="input-group">
             <label for="email_1">Correo Electrónico</label>
-            <input type="email" id="email_1" name="email_1" placeholder="Correo válido" required>
+            <input type="email" id="email_1" name="email_1" value="<?php echo htmlspecialchars($email1); ?>" placeholder="Correo válido" required >
             <span id="icon_email1" class="status-icon">✔</span>
         </div>
 <div class="mb-3">

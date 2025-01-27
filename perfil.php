@@ -64,8 +64,6 @@ function redirectWithStyle($message, $redirectUrl)
     exit();
 }
 
-
-
 // Verificar si la sesión contiene el num_con
 if (!isset($_SESSION['num_con'])) {
     header('Location: login.php'); // Redirige a la página de inicio de sesión si no está logueado
@@ -108,8 +106,17 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
+// Verificar si el campo 'carrera' está vacío
+if (empty($carrera)) {
+    // Redirigir a una página amigable de registro o edición si el campo 'carrera' está vacío
+    redirectWithStyle(
+        "Por favor, completa el formulario para acceder a este apartado.",
+        "registro.php"
+    );
+}
+
 // Verificar si algún dato esencial falta
-if (empty($nombre) || empty($ap_p) || empty($carrera) || empty($ano_egre)) {
+if (empty($nombre) || empty($ap_p) || empty($ano_egre)) {
     // Redirigir a una página amigable de registro o edición
     header('Location: registro.php?incompleto=1'); 
     exit();
