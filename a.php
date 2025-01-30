@@ -5,7 +5,6 @@ if (isset($_SESSION['nombre'])) {
 
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,6 +19,8 @@ if (isset($_SESSION['nombre'])) {
             body {
             font-family: Arial, sans-serif;
 			padding-top: 70px; /* Ajustar para el navbar fijo */
+            background-color: #f2f2f2;
+      		margin: 0;
         }
 
         .banner-img {
@@ -55,12 +56,7 @@ if (isset($_SESSION['nombre'])) {
         .content {
             padding: 20px;
         }
-		body {
-      		font-family: Arial, sans-serif;
-      		background-color: #f2f2f2;
-      		margin: 0;
-      		padding: 20px;
-    	}
+		
 
     	h1 {
       		color: #333333;
@@ -103,6 +99,28 @@ if (isset($_SESSION['nombre'])) {
     	input[type="submit"]:hover {
       		background-color: #45a049;
     	}
+        .content h2 {
+            color: #333333;
+        }
+        .custom-container {
+            border: 1px solid rgba(0, 0, 0, 0.2); /* Borde más transparente */
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(249, 249, 249, 0.95); /* Fondo más claro */
+            height: 100%;
+            box-shadow: 2px 2px 2px 2px rgba(0.2, 0, 0, 0.2);
+            bottom: 10px;
+        }
+
+        footer {
+            background-color: #333333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            margin-top: 30px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -126,6 +144,7 @@ if (isset($_SESSION['nombre'])) {
                             <li><a class="dropdown-item" href="solicitud.php"><i class="zmdi zmdi-balance"></i> Solicitudes Nuevas</a></li>
                             <li><a class="dropdown-item" href="docs.php"><i class="zmdi zmdi-labels"></i> Documentos</a></li>
                             <li><a class="dropdown-item" href="bus.php"><i class="zmdi zmdi-book"></i> Búsqueda de Egresado</a></li>
+                            <li><a class="dropdown-item" href="jefe.php"><i class="zmdi zmdi-book"></i> Listado de Egresados</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -137,12 +156,7 @@ if (isset($_SESSION['nombre'])) {
                             <li><a class="dropdown-item" href="registroadmin.php"><i class="zmdi zmdi-male-female"></i> Agregar Administrador</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reportes.php"><i class="zmdi zmdi-chart"></i> Reportes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="configuracion.php"><i class="zmdi zmdi-settings"></i> Configuración</a>
-                    </li>
+                   
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -161,20 +175,46 @@ if (isset($_SESSION['nombre'])) {
         <img src="images/Imagen1.png" alt="Banner" class="banner-img">
     </div>
 
-    <!-- Contenido Principal -->
-    <div class="container my-5">
-        <h2 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i> ADMINISTRADOR </h2>
-		<legend>Objetivo</legend>
-		<label for="nombre">Realizar los programas de vinculación con los sectores de la sociedad para garantizar el cumplimiento de los programas de residencias profesionales y consolidar el desarrollo tecnológico de las y los estudiantes, egresadas y egresados, mediante la recomendación de las y los alumnos destacados ante instituciones de los sectores, públicos, social o privado relacionadas con el mercado laboral.</label>
-    </div>
-	<div class="text-center">
-            <img src="images/rino_plasta_negro.png" alt="Logo" width="25%">
+    <div class="container-fluid">
+    <div class="row">
+        <!-- Contenedor izquierdo -->
+        <div class="col-md-6">
+            <div class="custom-container">
+                <h2 class="text-center">ADMINISTRADOR</h2>
+                <h4>Objetivo</h4>
+                <p>
+                Realizar los programas de vinculación con los sectores de la sociedad para garantizar el cumplimiento de los programas de residencias profesionales y consolidar el desarrollo tecnológico de las y los estudiantes, egresadas y egresados, mediante la recomendación de las y los alumnos destacados ante instituciones de los sectores, públicos, social o privado relacionadas con el mercado laboral.
+                </p>
+                <div class="text-center">
+                    <img src="images/rino_plasta_negro.png" alt="Logo" width="25%">
+                </div>
+            </div>
         </div>
-    <!-- Footer -->
-    <footer class="text-center py-3">
-        <p>&copy; 2024 Tecnológico de Estudios Superiores de Cuautitlán Izcalli</p>
-    </footer>
 
+        <!-- Contenedor derecho -->
+        <div class="col-md-6">
+            <div class="custom-container">
+                <h4 class="text-center">Otra Información</h4>
+                <p>
+                    Aquí puedes agregar contenido adicional relacionado con el seguimiento de egresados, como anuncios, noticias, eventos o información importante sobre trámites académicos.
+                </p>
+                <h5>Ejemplo de información:</h5>
+                <ul>
+                    <li>Convocatorias a programas de titulación.</li>
+                    <li>Eventos para egresados, como ferias de empleo.</li>
+                    <li>Acceso a bibliotecas digitales para egresados.</li>
+                </ul>
+                <div class="text-center">
+                    <img src="images/event_placeholder.png" alt="Imagen adicional" width="50%">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Footer -->
+<footer>
+    <p>©️ 2024 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
+</footer>
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
