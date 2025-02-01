@@ -13,7 +13,7 @@ $num_con = $_SESSION['num_con']; // Número de control del usuario logueado
 // Validar que se haya enviado un archivo
 if (isset($_FILES['archivito']) && $_FILES['archivito']['error'] === UPLOAD_ERR_OK) {
     // Ruta para almacenar las imágenes
-    $ruta = "imagenesCredencial/" . $num_con . "/";
+    $ruta = "documentos/" . $num_con . "/";
 
     // Crear directorio si no existe
     if (!is_dir($ruta)) {
@@ -58,7 +58,7 @@ if (isset($_FILES['archivito']) && $_FILES['archivito']['error'] === UPLOAD_ERR_
         $archivoName = $conexion->real_escape_string($archivoName);
 
         // Actualizar la base de datos con la nueva imagen
-        $sql = "UPDATE foto SET contenido='$archivoName' WHERE num_con='$num_con'";
+        $sql = "UPDATE documentos SET foto='$archivoName' WHERE num_con='$num_con'";
         if ($conexion->query($sql) === TRUE) {
             echo "Imagen subida y registrada correctamente.";
         } else {
