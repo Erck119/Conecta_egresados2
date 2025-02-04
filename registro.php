@@ -204,15 +204,14 @@ if (isset($_SESSION['num_con'])) {
         .navbar .dropdown-menu {
             background-color: #a62346;
         }
-
-        .navbar .dropdown-item {
-            color: #ffffff !important;
+        .navbar {
+            background-color: #a62346 !important;
         }
 
         .navbar .dropdown-item:hover {
-            background-color: #72122e;
+        background-color: transparent !important; /* Elimina el fondo en hover */
+        color: inherit !important; /* Mantiene el color del texto */
         }
-
         .content {
             padding: 20px;
         }

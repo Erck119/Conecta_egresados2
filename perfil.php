@@ -75,6 +75,7 @@ $num_con = $_SESSION['num_con'];
 
 // Inicializar variables
 $nombre = $ap_p = $ap_m = $carrera = $ano_egre = '';
+$profileImagePath = null; // Inicializar la variable
 
 // Consulta para obtener los datos del usuario basados en el num_con
 $query = "SELECT nombre, ap_p, ap_m, carrera, ano_egre FROM datos WHERE num_con = ?";
@@ -123,10 +124,17 @@ if (empty($nombre) || empty($ap_p) || empty($ano_egre)) {
 }
 
 // Manejo de imagen del perfil
-$profileImagePath = null; // Se asegura que la variable se declare antes
+$uploadDir = 'uploads/';
+$profileImagePath = null;
+
+// Buscar la imagen en la carpeta usando el num_con
+$files = glob($uploadDir . $num_con . '.*'); // Busca todos los archivos con el num_con
+if (!empty($files)) {
+    $profileImagePath = $files[0]; // Usar la primera coincidencia
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/';
         $error = "";
 
         // Crear el directorio si no existe
@@ -134,54 +142,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir($uploadDir, 0777, true);
         }
 
-        $fileTmpPath = $_FILES['profile_image']['tmp_name'];
-        $fileName = $num_con . '_' . basename($_FILES['profile_image']['name']);
-        $targetFilePath = $uploadDir . $fileName;
+        // Obtener la extensión del archivo
+        $fileExtension = strtolower(pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION));
 
-        // Validar las extensiones y los tipos MIME permitidos
+        // Validar las extensiones permitidas
         $allowedExtensions = ['jpg', 'jpeg', 'png'];
-        $allowedMimeTypes = ['image/jpeg', 'image/png'];
-        $fileType = mime_content_type($fileTmpPath);
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        if (in_array($fileExtension, $allowedExtensions)) {
+            // Nombre del archivo: num_con + extensión (ejemplo: 12345.jpg)
+            $fileName = $num_con . '.' . $fileExtension;
+            $targetFilePath = $uploadDir . $fileName;
 
-        // Comprobar tipo de archivo y extensión
-        if (in_array($fileExtension, $allowedExtensions) && in_array($fileType, $allowedMimeTypes)) {
-            // Si el archivo ya existe, cambiar el nombre para evitar sobrescritura
-            if (file_exists($targetFilePath)) {
-                $fileName = $num_con . '_' . time() . '_' . basename($_FILES['profile_image']['name']);
-                $targetFilePath = $uploadDir . $fileName;
-            }
-
-            // Intentar mover el archivo a la carpeta de destino
-            if (move_uploaded_file($fileTmpPath, $targetFilePath)) {
-                $profileImagePath = $targetFilePath;  // Ruta final de la imagen subida
+            // Mover el archivo a la carpeta de destino
+            if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $targetFilePath)) {
+                $profileImagePath = $targetFilePath;  // Ruta de la imagen subida
             } else {
                 $error = "Hubo un error al mover el archivo.";
             }
         } else {
             $error = "Solo se permiten archivos de imagen JPG, JPEG, y PNG.";
         }
-    } elseif ($_FILES['profile_image']['error'] !== UPLOAD_ERR_OK) {
+    } elseif (isset($_FILES['profile_image'])) {
         $error = "Hubo un error en la carga del archivo. Código de error: " . $_FILES['profile_image']['error'];
     }
 
     // Verificación para eliminar imagen
-    if (isset($_POST['delete_image']) && isset($profileImagePath) && file_exists($profileImagePath)) {
-        if (unlink($profileImagePath)) {
-            $profileImagePath = null;  // Eliminar la referencia a la imagen
+    if (isset($_POST['delete_image'])) {
+        // Buscar la imagen en la carpeta usando el num_con
+        $files = glob($uploadDir . $num_con . '.*'); // Busca todos los archivos con el num_con
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                if (file_exists($file)) {
+                    if (unlink($file)) {
+                        $profileImagePath = null;  // Eliminar la referencia a la imagen
+                    } else {
+                        $error = "No se pudo borrar la imagen.";
+                    }
+                }
+            }
         } else {
-            $error = "No se pudo borrar la imagen.";
+            $error = "No se encontró ninguna imagen para borrar.";
         }
-    } elseif (isset($_POST['delete_image']) && !isset($profileImagePath)) {
-        $error = "No se encontró ninguna imagen para borrar.";
     }
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Bootstrap CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Perfil del egresado</title>
   <style>
@@ -210,8 +219,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #ffffff !important;
         }
 
-        .navbar .dropdown-menu {
-            background-color: #a62346;
+        .navbar {
+            background-color: #a62346 !important;
+        }
+
+        .navbar .dropdown-item:hover {
+        background-color: transparent !important; /* Elimina el fondo en hover */
+        color: inherit !important; /* Mantiene el color del texto */
         }
 
         .navbar .dropdown-item {
@@ -325,7 +339,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #a62346;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -355,7 +368,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </ul>
                 </li>
             </ul>
-
             <!-- Pestañas alineadas a la derecha -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -363,7 +375,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="zmdi zmdi-home"></i> Principal
                     </a>
                 </li>
-               
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php" title="Salir">
+                        <i class="zmdi zmdi-power"></i> Salir
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -378,7 +394,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <!-- Contenedor Principal -->
-
 <div class="container-fluid mt-3">
     <div class="row justify-content-center">
         <!-- Contenedor Izquierdo: Foto del Egresado -->
@@ -386,22 +401,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="custom-container">
                 <h2 class="text-center">Foto del Egresado</h2>
                 <div class="profile-img text-center">
-                    <img src="<?php echo htmlspecialchars($profileImagePath); ?>" alt="Foto del Egresado">
+                    <?php if (!empty($profileImagePath)): ?>
+                        <img src="<?php echo htmlspecialchars($profileImagePath); ?>" alt="Foto del Egresado">
+                    <?php else: ?>
+                        <img src="images/default_profile.png" alt="Foto por defecto">
+                    <?php endif; ?>
                 </div>
                 <!-- Formulario para subir imagen -->
                 <form action="perfil.php" method="POST" enctype="multipart/form-data" class="mt-3">
                     <div class="mb-3">
-                    <input type="file" name="profile_image" accept=".jpg, .jpeg, .png" class="form-control">
+                        <input type="file" name="profile_image" accept=".jpg, .jpeg, .png" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-upload btn-block">Subir Imagen</button>
                 </form>
 
                 <!-- Botón para borrar imagen -->
-            <?php if (isset($profileImagePath)): ?>
-                <form action="perfil.php" method="POST" class="mt-2">
-                <button type="submit" name="delete_image" class="btn btn-delete btn-block">Eliminar Imagen</button>
-                  </form>
-            <?php endif; ?>
+                <?php if (!empty($profileImagePath)): ?>
+                    <form action="perfil.php" method="POST" class="mt-2">
+                        <button type="submit" name="delete_image" class="btn btn-delete btn-block">Eliminar Imagen</button>
+                    </form>
+                <?php endif; ?>
 
                 <?php if (isset($error)): ?>
                     <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
@@ -409,8 +428,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
 
-           <!-- Contenedor Derecho: Información del Egresado -->
-           <div class="col-md-7">
+        <!-- Contenedor Derecho: Información del Egresado -->
+        <div class="col-md-7">
             <div class="custom-container">
                 <h2 class="text-center">Información del Egresado</h2>
                 <p><strong>Número de Control:</strong> <?php echo htmlspecialchars($num_con); ?></p>
@@ -435,6 +454,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
 
 </html>

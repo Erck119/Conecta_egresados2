@@ -208,12 +208,13 @@ echo '</script>';
             color: #ffffff !important;
         }
 
-        .navbar .dropdown-menu {
-            background-color: #a62346;
+        .navbar {
+            background-color: #a62346 !important;
         }
 
-        .navbar .dropdown-item {
-            color: #ffffff !important;
+        .navbar .dropdown-item:hover {
+        background-color: transparent !important; /* Elimina el fondo en hover */
+        color: inherit !important; /* Mantiene el color del texto */
         }
 
         .navbar .dropdown-item:hover {
@@ -340,6 +341,7 @@ echo '</script>';
         </div>
     </div>
 </nav>
+
 
 
 
