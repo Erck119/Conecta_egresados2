@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificamos si el número de control o el correo ya están registrados
     $duplicate = mysqli_query($conn, "SELECT * FROM usuarios WHERE num_con = '$num_con' OR email = '$email'");
     if (mysqli_num_rows($duplicate) > 0) {
-        echo "<script>alert('El número de control o el correo ya están registrados'); </script>";
+        echo "<script>alert('El número de control o el correo ya están registrados');</script>";
     } else {
         // Encriptamos la contraseña antes de guardarla
         $hashedPassword = password_hash($contraseña, PASSWORD_BCRYPT); // Aseguramos el uso de BCRYPT

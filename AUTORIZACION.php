@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+
   <title>Formulario de Datos de Egresados</title>
   <style>
     body {
@@ -57,7 +59,7 @@
 
 
 <h2><br><br><br><br><br><br><br><br><br><br><br><center><form enctype="multipart/form-data" action="guardar_archivo_foto.php" method="post">
-   
+    
 <?php
 require 'config.php';
 session_start();
@@ -91,23 +93,10 @@ if (isset($_SESSION['nombre'])) {
 
         // Comparamos el estado
         if ($estado === "aceptar") {
-            // Insertar el script que abre la ventana emergente
-            echo '
-                <script>
-                    function abrirVentanaEmergente() {
-                        var url = "cp.php";
-                        var width = 520;
-                        var height = 790;
-                        var left = (window.screen.width - width) / 2;
-                        var top = (window.screen.height - height) / 2;
-                        window.open(url, "_blank", "width=" + width + ", height=" + height + ", top=" + top + ", left=" + left);
-                    }
-                </script>
-            ';
-            // Ejecutar la función para abrir la ventana emergente directamente
-            echo '<script>abrirVentanaEmergente();</script>';
+            // Redireccionar a "EnviarPassword2.php" en la misma ventana
+            echo '<script>window.location.href = "EnviarPassword2.php";</script>';
         } else {
-            // Redireccionar a "EnviarPassword2.php"
+            // Redireccionar a "EnviarPassword2.php" en la misma ventana
             echo '<script>window.location.href = "EnviarPassword2.php";</script>';
         }
     } else {

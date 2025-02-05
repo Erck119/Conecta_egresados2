@@ -141,6 +141,7 @@ echo '</script>';
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
 <title>Formulario de Datos de Egresados</title>
 <style>
   body {

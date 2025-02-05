@@ -42,6 +42,7 @@ $contenido = listarCarpetas($baseDir, $search);
     <title>Documentos de Estudiantes</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;

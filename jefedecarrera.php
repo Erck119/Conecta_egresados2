@@ -63,6 +63,8 @@ $totalRegistros = $result->num_rows;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador - Jefe de Carrera</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         body {
@@ -113,11 +115,9 @@ $totalRegistros = $result->num_rows;
                 <img src="images/rino.png" alt="Logo"> JEFE DE CARRERA
             </a>
             <ul class="navbar-nav ms-auto">
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="a.php" title="Mis datos"><i class="zmdi zmdi-account-circle"></i> </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.php" title="Salir"><i class="zmdi zmdi-power"></i> Salir</a>
+                <a class="nav-link" href="login.php" title="Salir"><i class="zmdi zmdi-power"></i> Salir</a>
                 </li>
             </ul>
         </div>
@@ -160,7 +160,8 @@ $totalRegistros = $result->num_rows;
                 <div class="row mt-3">
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-primary">Filtrar</button>
-                        <a href="./excelbus.php" class="btn btn-success ms-2">Excel</a>
+                        <a href="exceladminc.php?carrera=<?= urlencode($carrera) ?>&anio=<?= urlencode($anio) ?>&sexo=<?= urlencode($sexo) ?>" 
+                        class="btn btn-success ms-2">Exportar a Excel</a>
                     </div>
                 </div>
             </form>

@@ -9,8 +9,10 @@ if (!isset($_SESSION['nombre'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['num_con'])) {
     $num_con = mysqli_real_escape_string($conn, $_POST['num_con']);
     $estado = ($_POST['action'] === 'autorizar') ? 'aceptar' : 'rechazar';
+    $observacion = isset($_POST['observacion']) ? mysqli_real_escape_string($conn, $_POST['observacion']) : '';
 
-    $queryUpdate = "UPDATE datos SET estado = '$estado' WHERE num_con = '$num_con'";
+    // Actualizar la base de datos con la observación si fue rechazada
+    $queryUpdate = "UPDATE datos SET estado = '$estado', observaciones = '$observacion' WHERE num_con = '$num_con'";
 
     if (mysqli_query($conn, $queryUpdate)) {
         echo "
@@ -62,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['num
             }, 5000);
         </script>";
     }
-    
 }
 
 // Inicializamos la conexión desde config.php
@@ -72,9 +73,7 @@ if (!$conn) {
 
 // Procesamos la búsqueda
 $search = $_GET['search'] ?? '';
-$query = "SELECT num_con, nombre, ap_p, ap_m, tel_1, carrera, ano_egre,estado 
-          FROM datos 
-          WHERE num_con LIKE ?";
+$query = "SELECT num_con, nombre, ap_p, ap_m, tel_1, carrera, ano_egre, observaciones, estado FROM datos WHERE num_con LIKE ?";
 $stmt = $conn->prepare($query);
 $searchParam = "%$search%";
 $stmt->bind_param("s", $searchParam);
@@ -88,6 +87,8 @@ $result = $stmt->get_result();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
     <title>Solicitudes</title>
     <style>
         body {
@@ -171,47 +172,47 @@ $result = $stmt->get_result();
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="images/rino.png" alt="Logo" style="max-width: 50px;"> ADMINISTRADOR
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAdministracion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Administración
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownAdministracion">
-                            <li><a class="dropdown-item" href="solicitud.php">Solicitudes Nuevas</a></li>
-                            <li><a class="dropdown-item" href="docs.php">Documentos</a></li>
-                            <li><a class="dropdown-item" href="bus.php">Búsqueda de Egresado</a></li>
-                            <li><a class="dropdown-item" href="jefe.php"><i class="zmdi zmdi-book"></i> Listado de Egresados</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Usuarios
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownUsuarios">
-                            <li><a class="dropdown-item" href="listaegre.php">Administración de usuarios</a></li>
-                            <li><a class="dropdown-item" href="registroadmin.php">Agregar Administrador</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="a.php" title="Mis datos">Principal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php" title="Salir">Salir</a>
-                    </li>
-                </ul>
-            </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="images/rino.png" alt="Logo" style="max-width: 50px;"> ADMINISTRADOR
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAdministracion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="zmdi zmdi-settings"></i> Administración
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownAdministracion">
+                        <li><a class="dropdown-item" href="solicitud.php"><i class="zmdi zmdi-email"></i> Solicitudes Nuevas</a></li>
+                        <li><a class="dropdown-item" href="docs.php"><i class="zmdi zmdi-file-text"></i> Documentos</a></li>
+                        <li><a class="dropdown-item" href="bus.php"><i class="zmdi zmdi-search"></i> Búsqueda de Egresado</a></li>
+                        <li><a class="dropdown-item" href="jefe.php"><i class="zmdi zmdi-collection-text"></i> Listado de Egresados</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="zmdi zmdi-accounts"></i> Usuarios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownUsuarios">
+                        <li><a class="dropdown-item" href="listaegre.php"><i class="zmdi zmdi-account-box-mail"></i> Administración de Usuarios</a></li>
+                        <li><a class="dropdown-item" href="registroadmin.php"><i class="zmdi zmdi-account-add"></i> Agregar Administrador</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="a.php" title="Mis datos"><i class="zmdi zmdi-home"></i> Principal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php" title="Salir"><i class="zmdi zmdi-power"></i> Salir</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
    <!-- Banner -->
    <div class="container-fluid">
@@ -240,10 +241,14 @@ $result = $stmt->get_result();
                             <td><?= htmlspecialchars($row['num_con']) ?></td>
                             <td><?= htmlspecialchars($row['estado']) ?></td>
                             <td>
-                                <form method="POST" action="" style="display:inline-block;">
+                                <form method="POST" action="" style="display:inline-block;" id="form-<?= htmlspecialchars($row['num_con']) ?>">
                                     <input type="hidden" name="num_con" value="<?= htmlspecialchars($row['num_con']) ?>">
-                                    <button type="submit" name="action" value="autorizar" class="btn btn-maroon">Autorizar</button>
-                                    <button type="submit" name="action" value="rechazar" class="btn btn-maroon">Rechazar</button>
+                                    <button type="button" class="btn btn-maroon" onclick="setAction('autorizar', '<?= htmlspecialchars($row['num_con']) ?>')">Autorizar</button>
+                                    <button type="button" class="btn btn-maroon" onclick="showRechazarModal('<?= htmlspecialchars($row['num_con']) ?>')">Rechazar</button>
+                                    <div id="observacion-container-<?= htmlspecialchars($row['num_con']) ?>" style="display:none;">
+                                        <textarea name="observacion" rows="3" class="form-control" placeholder="Escriba el motivo del rechazo"></textarea>
+                                        <button type="button" class="btn btn-danger mt-2" onclick="submitRechazar('<?= htmlspecialchars($row['num_con']) ?>')">Enviar Rechazo</button>
+                                    </div>
                                 </form>
                                 <button class="btn btn-info" onclick="showDetails('<?= htmlspecialchars(json_encode($row)) ?>')">Ver datos</button>
                             </td>
@@ -256,50 +261,79 @@ $result = $stmt->get_result();
         <?php endif; ?>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Detalles del Egresado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
-                    <p><strong>Apellido Paterno:</strong> <span id="modalApellidoP"></span></p>
-                    <p><strong>Apellido Materno:</strong> <span id="modalApellidoM"></span></p>
-                    <p><strong>Teléfono:</strong> <span id="modalTelefono"></span></p>
-                    <p><strong>Carrera:</strong> <span id="modalCarrera"></span></p>
-                    <p><strong>Año de Egreso:</strong> <span id="modalAnioEgreso"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <footer>
         <p>©️ 2024 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        function showDetails(data) {
-            const details = JSON.parse(data);
-
-            // Actualizar contenido del modal
-            document.getElementById('modalNombre').textContent = details.nombre;
-            document.getElementById('modalApellidoP').textContent = details.ap_p;
-            document.getElementById('modalApellidoM').textContent = details.ap_m;
-            document.getElementById('modalTelefono').textContent = details.tel_1;
-            document.getElementById('modalCarrera').textContent = details.carrera;
-            document.getElementById('modalAnioEgreso').textContent = details.ano_egre;
-
-            // Mostrar el modal
-            const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
-            modal.show();
+        function showRechazarModal(num_con) {
+            const observacionContainer = document.getElementById('observacion-container-' + num_con);
+            observacionContainer.style.display = 'block';
         }
+
+        function setAction(action, num_con) {
+            const form = document.getElementById('form-' + num_con);
+            const actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'action';
+            actionInput.value = action;
+            form.appendChild(actionInput);
+            form.submit();
+        }
+
+        function submitRechazar(num_con) {
+            const form = document.getElementById('form-' + num_con);
+            const observacion = form.querySelector('textarea[name="observacion"]').value;
+            if (observacion.trim() === "") {
+                alert("Debe ingresar una observación.");
+                return;
+            }
+            setAction('rechazar', num_con);
+        }
+
+        function showDetails(data) {
+    const details = JSON.parse(data);
+
+    // Actualizar contenido del modal
+    document.getElementById('modalNombre').textContent = details.nombre;
+    document.getElementById('modalApellidoP').textContent = details.ap_p;
+    document.getElementById('modalApellidoM').textContent = details.ap_m;
+    document.getElementById('modalTelefono').textContent = details.tel_1;
+    document.getElementById('modalCarrera').textContent = details.carrera;
+    document.getElementById('modalAnioEgreso').textContent = details.ano_egre;
+    document.getElementById('modalObservaciones').textContent = details.observaciones;
+
+    // Mostrar el modal
+    const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    modal.show();
+}
+
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal de detalles -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Detalles del Egresado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
+                <p><strong>Apellido Paterno:</strong> <span id="modalApellidoP"></span></p>
+                <p><strong>Apellido Materno:</strong> <span id="modalApellidoM"></span></p>
+                <p><strong>Teléfono:</strong> <span id="modalTelefono"></span></p>
+                <p><strong>Carrera:</strong> <span id="modalCarrera"></span></p>
+                <p><strong>Año de Egreso:</strong> <span id="modalAnioEgreso"></span></p>
+                <p><strong>Observaciones:</strong> <span id="modalObservaciones"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

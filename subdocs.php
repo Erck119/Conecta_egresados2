@@ -1,3 +1,98 @@
+
+<?php
+require 'config.php';
+session_start();
+
+// Verifica si el usuario está logueado
+if (isset($_SESSION['num_con'])) {
+    $num_con = $_SESSION['num_con'];
+} else {
+    header("Location: login.php");
+    exit();
+}
+
+// Inicializa mensajes
+$mensaje = "";
+
+// Manejo del formulario de subida de archivos
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $directorio = "documentos/"; // Carpeta donde se guardarán los archivos
+    $archivosSubidos = [];
+
+    // Verifica y mueve los archivos subidos
+    foreach (['cartaResidencias', 'boletaIngles', 'titulo'] as $campo) {
+        if (isset($_FILES[$campo]) && $_FILES[$campo]['error'] == UPLOAD_ERR_OK) {
+            $nombreArchivo = basename($_FILES[$campo]['name']);
+            $rutaArchivo = $directorio . $num_con . "/" . $nombreArchivo;
+
+            // Crea el directorio para el num_con si no existe
+            if (!is_dir($directorio . $num_con)) {
+                mkdir($directorio . $num_con, 0755, true);
+            }
+
+            // Mueve el archivo a la ruta deseada
+            if (move_uploaded_file($_FILES[$campo]['tmp_name'], $rutaArchivo)) {
+                $archivosSubidos[$campo] = $rutaArchivo;
+            }
+        }
+    }
+
+    // Si se subieron archivos, actualiza la base de datos
+    if (!empty($archivosSubidos)) {
+        // Variables temporales para los archivos
+$cartaResidencias = isset($archivosSubidos['cartaResidencias']) ? basename($archivosSubidos['cartaResidencias']) : null;
+$boletaIngles = isset($archivosSubidos['boletaIngles']) ? basename($archivosSubidos['boletaIngles']) : null;
+$titulo = isset($archivosSubidos['titulo']) ? basename($archivosSubidos['titulo']) : null;
+
+        $query = "SELECT * FROM documentos WHERE num_con = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $num_con);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        if ($resultado->num_rows > 0) {
+            // Si ya existen registros, actualiza
+            $updateQuery = "UPDATE documentos SET 
+                carta_termino = IFNULL(?, carta_termino),
+                boleta_o_ingles = IFNULL(?, boleta_o_ingles),
+                titulo = IFNULL(?, titulo)
+                WHERE num_con = ?";
+            $stmt = $conn->prepare($updateQuery);
+            $stmt->bind_param(
+                "ssss",
+                $cartaResidencias,
+                $boletaIngles,
+                $titulo,
+                $num_con
+            );
+            $stmt->execute();
+        } else {
+            // Si no existen registros, inserta nuevos
+            $insertQuery = "INSERT INTO documentos (num_con, carta_termino, boleta_o_ingles, titulo) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($insertQuery);
+            $stmt->bind_param(
+                "ssss",
+                $num_con,
+                $cartaResidencias,
+                $boletaIngles,
+                $titulo
+            );
+            $stmt->execute();
+        }
+
+        $mensaje = "Archivos cargados correctamente.";
+    }
+}
+
+// Consulta el estado actual de los documentos
+$query = "SELECT carta_termino, boleta_o_ingles, titulo FROM documentos WHERE num_con = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $num_con);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$estadoDocumentos = $resultado->fetch_assoc() ?: ['carta_termino' => null, 'boleta_o_ingles' => null, 'titulo' => null];
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +101,7 @@
     <title>Documentación</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Datos de Egresados</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
@@ -84,35 +85,40 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownEgresados" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Documentación
+                        <i class="zmdi zmdi-case"></i> Documentación
                     </a>
                     <ul class="dropdown-menu" style="background-color: #a62346;">
-                        <li><a class="dropdown-item text-white" href="registro.php">Formulario</a></li>
-                        <li><a class="dropdown-item text-white" href="subdocs.php">Documentos</a></li>
-                        <li><a class="dropdown-item text-white" href="descargar.php">Descargar Credencial</a></li>
+                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Formulario</a></li>
+                        <li><a class="dropdown-item text-white" href="subdocs.php"><i class="zmdi zmdi-book"></i> Documentos</a></li>
+                        <li><a class="dropdown-item text-white" href="descargar.php"><i class="zmdi zmdi-download"></i> Descargar Credencial</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Usuario
+                        <i class="zmdi zmdi-account-add"></i> Usuario
                     </a>
                     <ul class="dropdown-menu" style="background-color: #a62346;">
-                        <li><a class="dropdown-item text-white" href="perfil.php">Perfil</a></li>
+                        <li><a class="dropdown-item text-white" href="perfil.php"><i class="zmdi zmdi-labels"></i> Perfil</a></li>
                     </ul>
                 </li>
             </ul>
             <!-- Pestañas alineadas a la derecha -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="egresados.php">Principal</a>
+                    <a class="nav-link" href="egresados.php">
+                        <i class="zmdi zmdi-home"></i> Principal
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.php" title="Salir">Salir</a>
+                    <a class="nav-link" href="login.php" title="Salir">
+                        <i class="zmdi zmdi-power"></i> Salir
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 
     <!-- Banner -->
     <div>

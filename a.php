@@ -13,6 +13,7 @@ if (isset($_SESSION['nombre'])) {
     <title>Administrador</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
     <!-- Estilos personalizados -->
 	<style>
 		
@@ -126,49 +127,47 @@ if (isset($_SESSION['nombre'])) {
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="images/rino.png" alt="Logo" style="max-width: 50px;"> ADMINISTRADOR
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownAdministracion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="zmdi zmdi-case"></i> Administración
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownAdministracion">
-                            <li><a class="dropdown-item" href="solicitud.php"><i class="zmdi zmdi-balance"></i> Solicitudes Nuevas</a></li>
-                            <li><a class="dropdown-item" href="docs.php"><i class="zmdi zmdi-labels"></i> Documentos</a></li>
-                            <li><a class="dropdown-item" href="bus.php"><i class="zmdi zmdi-book"></i> Búsqueda de Egresado</a></li>
-                            <li><a class="dropdown-item" href="jefe.php"><i class="zmdi zmdi-book"></i> Listado de Egresados</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="zmdi zmdi-account-add"></i> Usuarios
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownUsuarios">
-                            <li><a class="dropdown-item" href="listaegre.php"><i class="zmdi zmdi-male-female"></i> Administración de usuarios</a></li>
-                            <li><a class="dropdown-item" href="registroadmin.php"><i class="zmdi zmdi-male-female"></i> Agregar Administrador</a></li>
-                        </ul>
-                    </li>
-                   
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="a.php" title="Mis datos"><i class="zmdi zmdi-account-circle"></i>Principal </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php" title="Salir"><i class="zmdi zmdi-power"></i> Salir</a>
-                    </li>
-                </ul>
-            </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="images/rino.png" alt="Logo" style="max-width: 50px;"> ADMINISTRADOR
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAdministracion" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="zmdi zmdi-settings"></i> Administración
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownAdministracion">
+                        <li><a class="dropdown-item" href="solicitud.php"><i class="zmdi zmdi-email"></i> Solicitudes Nuevas</a></li>
+                        <li><a class="dropdown-item" href="docs.php"><i class="zmdi zmdi-file-text"></i> Documentos</a></li>
+                        <li><a class="dropdown-item" href="bus.php"><i class="zmdi zmdi-search"></i> Búsqueda de Egresado</a></li>
+                        <li><a class="dropdown-item" href="jefe.php"><i class="zmdi zmdi-collection-text"></i> Listado de Egresados</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="zmdi zmdi-accounts"></i> Usuarios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownUsuarios">
+                        <li><a class="dropdown-item" href="listaegre.php"><i class="zmdi zmdi-account-box-mail"></i> Administración de Usuarios</a></li>
+                        <li><a class="dropdown-item" href="registroadmin.php"><i class="zmdi zmdi-account-add"></i> Agregar Administrador</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="a.php" title="Mis datos"><i class="zmdi zmdi-home"></i> Principal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php" title="Salir"><i class="zmdi zmdi-power"></i> Salir</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Banner -->
     <div class="container-fluid">

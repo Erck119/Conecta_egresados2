@@ -86,7 +86,8 @@ if (isset($_SESSION['num_con'])) {
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
+
     <!-- Estilos personalizados -->
     <style>
           /* Fondo de la página */
