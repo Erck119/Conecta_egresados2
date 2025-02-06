@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require 'config.php'; // Aquí se obtiene la conexión a la base de datos
 require 'vendor/autoload.php'; // Cargar dependencias
 
 use setasign\Fpdi\Fpdi; // Declarar uso de FPDI aquí
@@ -15,28 +15,33 @@ $carrera = $_SESSION['carrera'] ?? 'No especificado';
 $ano_egre = $_SESSION['ano_egre'] ?? 'No especificado';
 $fotoPredeterminada = 'C:/xampp/htdocs/conecta_egresados/images/Predeterminada/descargar.jpeg';
 
-// Conexión a la base de datos
-$conn = new mysqli("localhost", "root", "", "conecta_egresados");
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+// Verificar conexión
+if (!$conn) {
+    die("Error de conexión: " . mysqli_connect_error());
 }
 
-// Buscar la carpeta de fotos para el usuario
-$rutaImagen = "C:/xampp/htdocs/conecta_egresados/imagenesCredencial/$num_con/";
+// Consultar el nombre del archivo de la foto en la base de datos
+$sql = "SELECT foto FROM documentos WHERE num_con = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $num_con);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// Obtener todos los archivos de la carpeta
-$archivos = scandir($rutaImagen);
+$foto = $fotoPredeterminada; // Valor por defecto si no hay foto registrada
+if ($row = $result->fetch_assoc()) {
+    $nombreFoto = $row['foto'];
 
-// Filtrar para encontrar una imagen (suponiendo que sea jpg, png o jpeg)
-$foto = $fotoPredeterminada; // Valor predeterminado en caso de que no se encuentre ninguna imagen
-
-foreach ($archivos as $archivo) {
-    // Verificar si es una imagen
-    if (in_array(strtolower(pathinfo($archivo, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) {
-        $foto = $rutaImagen . $archivo; // Usamos la primera imagen válida que encontremos
-        break; // Salimos del loop si encontramos una imagen
+    // Verificar si el nombre del archivo no está vacío y tiene una extensión válida
+    if (!empty($nombreFoto) && preg_match('/\.(jpg|jpeg|png)$/i', $nombreFoto)) {
+        $rutaImagen = "C:/xampp/htdocs/conecta_egresados/documentos/$num_con/$nombreFoto";
+        if (file_exists($rutaImagen)) {
+            $foto = realpath($rutaImagen); // Obtener la ruta absoluta
+        } else {
+            error_log("Imagen no encontrada: $rutaImagen");
+        }
     }
 }
+$stmt->close();
 
 // Ruta al archivo PDF base
 $templatePath = 'C:/xampp/htdocs/conecta_egresados/images/CredencialDigital.pdf';
@@ -70,7 +75,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
         $pdf->Cell(190, 10, "$num_con", 0, 1, 'C');
 
         // Cargar la imagen (se usará la predeterminada si no se encuentra ninguna imagen)
-        $pdf->Image($foto, 59,42, 94,91); // Ajustar según diseño
+        $pdf->Image($foto, 59, 42, 94, 91); // Ajustar según diseño
     }
 }
 

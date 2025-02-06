@@ -112,7 +112,7 @@ $totalRegistros = $result->num_rows;
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="images/rino.png" alt="Logo"> JEFE DE CARRERA
+                <img src="images/rino.png" alt="Logo"> JEFE(A) DE CARRERA
             </a>
             <ul class="navbar-nav ms-auto">
                 
@@ -161,7 +161,7 @@ $totalRegistros = $result->num_rows;
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-primary">Filtrar</button>
                         <a href="exceladminc.php?carrera=<?= urlencode($carrera) ?>&anio=<?= urlencode($anio) ?>&sexo=<?= urlencode($sexo) ?>" 
-                        class="btn btn-success ms-2">Exportar a Excel</a>
+                        class="btn btn-success ms-2">Excel</a>
                     </div>
                 </div>
             </form>

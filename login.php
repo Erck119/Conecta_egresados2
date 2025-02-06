@@ -129,6 +129,21 @@ if (isset($_SESSION['nombre'])) {
     <label for="password">Contraseña</label>
     <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Crea una contraseña" required>
 
+    <label for="carrera" class="form-label">Carrera</label>
+    <select id="carrera" name="carrera" class="form-select" >
+    <option value="" disabled selected>Seleccione una carrera</option>
+    <option value="Ingenieria en Electrónica">Ing. Electrónica</option>
+    <option value="Ingenieria en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
+    <option value="Ingenieria en Gestión Empresarial">Ing. en Gestión Empresarial</option>
+    <option value="Ingeniería en TICS">Ingeniería en Tecnologías de la Información y Comunicaciones</option>
+    <option value="Contador Público">Contador Público</option>
+    <option value="Ingeniería en Industrial">Ing. Industrial</option>
+    <option value="Ingeniería en Logística">Ing. en Logística</option>
+    <option value="Ingeniería en Administración">Ing. en Administración</option>
+    <option value="Ingeniería en Mecatrónica">Ing. Mecatrónica</option>
+    <option value="Ingeniería en Química">Ing. Química</option>
+          </select>
+
     <button type="submit" name="register" class="btn btn-primary w-100" style="background-color: #800020; border-color: #800020;">Registrarse</button>
 </form>
 

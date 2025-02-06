@@ -152,6 +152,7 @@ if (!isset($_SESSION['nombre'])) {
                     <th>Número de Control</th>
                     <th>Nombre</th>
                     <th>Rol</th>
+                    <th>Carrera</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -173,6 +174,7 @@ if (!isset($_SESSION['nombre'])) {
                                 <td>{$row['num_con']}</td>
                                 <td>{$row['nombre']}</td>
                                 <td>{$row['rol']}</td>
+                                <td>{$row['carrera']}</td>
                                 <td>
                                     <button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#modalUser{$row['num_con']}'>Ver Más</button>
                                     <button class='btn btn-danger btn-sm delete-btn' data-id='{$row['num_con']}'>Borrar</button>
@@ -194,6 +196,7 @@ if (!isset($_SESSION['nombre'])) {
                                             <p><strong>Apellido Materno:</strong> {$row['ap_m']}</p>
                                             <p><strong>Email:</strong> {$row['email']}</p>
                                             <p><strong>Rol:</strong> {$row['rol']}</p>
+                                            <p><strong>Carrera:</strong> {$row['carrera']}</p>
                                         </div>
                                         <div class='modal-footer'>
                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>

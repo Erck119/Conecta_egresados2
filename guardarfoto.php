@@ -26,10 +26,13 @@ if (isset($_FILES['archivito']) && $_FILES['archivito']['error'] === UPLOAD_ERR_
     $archivoSize = $_FILES['archivito']['size'];
     $archivoType = mime_content_type($archivoTemp);
 
+    // Obtener la extensión real del archivo
+    $ext = strtolower(pathinfo($archivoName, PATHINFO_EXTENSION));
+
     // Validar tipo de archivo (solo imágenes)
-    $formatosPermitidos = ['image/jpeg', 'image/png'];
-    if (!in_array($archivoType, $formatosPermitidos)) {
-        echo "Error: El archivo debe ser una imagen en formato JPEG o PNG.";
+    $formatosPermitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp']; // Agregados más formatos
+    if (!in_array($ext, $formatosPermitidos)) {
+        echo "Error: El archivo debe ser una imagen válida (JPG, PNG, GIF, WEBP).";
         exit();
     }
 
@@ -39,14 +42,16 @@ if (isset($_FILES['archivito']) && $_FILES['archivito']['error'] === UPLOAD_ERR_
         exit();
     }
 
-    // Normalizar el nombre del archivo
-    $archivoName = quitaacentos(utf8_decode($archivoName));
-    $archivoName = strtolower($archivoName);
+    // Normalizar el nombre del archivo (sin acentos ni caracteres especiales)
+    $archivoName = quitaacentos(pathinfo($archivoName, PATHINFO_FILENAME)) . '.' . $ext;
+
+    // Ruta final del archivo
+    $rutaFinal = $ruta . $archivoName;
 
     // Mover el archivo a la carpeta correspondiente
-    if (move_uploaded_file($archivoTemp, $ruta . $archivoName)) {
-        // Redimensionar la imagen
-        imagenproductos($ruta . $archivoName);
+    if (move_uploaded_file($archivoTemp, $rutaFinal)) {
+        // Redimensionar la imagen manteniendo su formato original
+        imagenproductos($rutaFinal, $ext);
 
         // Conectar a la base de datos
         $conexion = new mysqli('localhost', 'root', '', 'conecta_egresados');
@@ -73,54 +78,65 @@ if (isset($_FILES['archivito']) && $_FILES['archivito']['error'] === UPLOAD_ERR_
     echo "Error: No se recibió ningún archivo.";
 }
 
-// Función para redimensionar imágenes
-function imagenproductos($imagen)
+// Función para redimensionar imágenes sin cambiar la extensión
+function imagenproductos($imagen, $ext)
 {
-    $info = new SplFileInfo($imagen);
-    $uploadedfile = $imagen;
-    $ext = $info->getExtension();
-    $name = str_ireplace("." . $ext, "", $info->getFilename());
-    $ruta = $info->getPath();
-    $quality = 75;
+    list($width, $height) = getimagesize($imagen);
     $newwidth = 500;
-
-    // Crear recurso de imagen dependiendo del formato
-    if ($ext == "jpg" || $ext == "jpeg") {
-        $src = imagecreatefromjpeg($uploadedfile);
-    } else if ($ext == "png") {
-        $src = imagecreatefrompng($uploadedfile);
-    } else {
-        return; // Si no es un formato soportado, salir
-    }
-
-    // Obtener dimensiones originales y calcular nuevas
-    list($width, $height) = getimagesize($uploadedfile);
     $newheight = ($height / $width) * $newwidth;
 
-    // Crear una nueva imagen redimensionada
     $tmp = imagecreatetruecolor($newwidth, $newheight);
-    $color = imagecolorallocatealpha($tmp, 255, 255, 255, 1); // Fondo blanco
+    $color = imagecolorallocatealpha($tmp, 255, 255, 255, 1);
     imagefill($tmp, 0, 0, $color);
+
+    // Crear imagen según su tipo
+    switch ($ext) {
+        case 'jpg':
+        case 'jpeg':
+            $src = imagecreatefromjpeg($imagen);
+            break;
+        case 'png':
+            $src = imagecreatefrompng($imagen);
+            imagealphablending($tmp, false);
+            imagesavealpha($tmp, true);
+            break;
+        case 'gif':
+            $src = imagecreatefromgif($imagen);
+            break;
+        case 'webp':
+            $src = imagecreatefromwebp($imagen);
+            break;
+        default:
+            return;
+    }
+
     imagecopyresampled($tmp, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-    // Guardar la nueva imagen
-    imagejpeg($tmp, $ruta . '/' . $name . ".jpg", $quality);
+    // Guardar la imagen redimensionada en su formato original
+    switch ($ext) {
+        case 'jpg':
+        case 'jpeg':
+            imagejpeg($tmp, $imagen, 75);
+            break;
+        case 'png':
+            imagepng($tmp, $imagen, 6);
+            break;
+        case 'gif':
+            imagegif($tmp, $imagen);
+            break;
+        case 'webp':
+            imagewebp($tmp, $imagen, 75);
+            break;
+    }
 
     // Liberar memoria
     imagedestroy($tmp);
     imagedestroy($src);
-
-    // Eliminar el archivo original si es PNG o JPEG
-    if ($ext == "png" || $ext == "jpeg") {
-        unlink($uploadedfile);
-    }
 }
 
-// Función para quitar acentos y caracteres no válidos
+// Función para quitar acentos y caracteres no válidos en nombres de archivos
 function quitaacentos($cual)
 {
-    $search2 = array('"', '!', '¡', '|', '<', '>', '#', '$', '%', '&', '°', '*', 'ç', '+', '?', '¿', ';', ':', '/', '\\', '(', ')', '´');
-    $cual = str_replace($search2, "", $cual);
     $search = array('Á', 'É', 'Í', 'Ó', 'Ú', 'á', 'é', 'í', 'ó', 'ú', ' ', '_', 'Ñ', 'ñ');
     $replace = array('A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u', '-', '_', 'N', 'n');
     return str_replace($search, $replace, $cual);

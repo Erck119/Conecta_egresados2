@@ -377,14 +377,14 @@ if (isset($_SESSION['num_con'])) {
         <option value="Licenciatura en Informatica" <?= $carrera == 'Licenciatura en Informatica' ? 'selected' : ''; ?>>Licenciatura en Informática</option>
         <option value="Licenciatura en Contador Publico" <?= $carrera == 'Licenciatura en Contador Publico' ? 'selected' : ''; ?>>Licenciatura en Contador Público</option>
         <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingenieria en Sistemas Computacionales' ? 'selected' : ''; ?>>Ingeniería en Sistemas Computacionales</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingenieria en Gestion Empresarial' ? 'selected' : ''; ?>>Ingeniería en Gestion Empresarial</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingeniería en Tecnologías de la Información y Comunicacionesl' ? 'selected' : ''; ?>>Ingeniería en Tecnologías de la Información y Comunicaciones</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Contador Público' ? 'selected' : ''; ?>>Contador Público</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingeniería Industrial' ? 'selected' : ''; ?>>Ingeniería Industrial</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingeniería en Logística ' ? 'selected' : ''; ?>>Ingeniería en Logística </option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingeniería en Administración ' ? 'selected' : ''; ?>>Ingeniería en Administración </option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingeniería Mecatrónica ' ? 'selected' : ''; ?>>Ingeniería Mecatrónica</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingeniería  Química' ? 'selected' : ''; ?>>Ingeniería Química</option>
+        <option value="Ingenieria en Gestion Empresarial" <?= $carrera == 'Ingenieria en Gestion Empresarial' ? 'selected' : ''; ?>>Ingeniería en Gestion Empresarial</option>
+        <option value="Ingeniería en Tecnologías de la Información y Comunicacionesl" <?= $carrera == 'Ingeniería en Tecnologías de la Información y Comunicacionesl' ? 'selected' : ''; ?>>Ingeniería en Tecnologías de la Información y Comunicaciones</option>
+        <option value="Contador Público" <?= $carrera == 'Contador Público' ? 'selected' : ''; ?>>Contador Público</option>
+        <option value="Ingeniería Industrial" <?= $carrera == 'Ingeniería Industrial' ? 'selected' : ''; ?>>Ingeniería Industrial</option>
+        <option value="Ingeniería en Logística" <?= $carrera == 'Ingeniería en Logística ' ? 'selected' : ''; ?>>Ingeniería en Logística </option>
+        <option value="Ingeniería en Administración" <?= $carrera == 'Ingeniería en Administración ' ? 'selected' : ''; ?>>Ingeniería en Administración </option>
+        <option value="Ingeniería Mecatrónica" <?= $carrera == 'Ingeniería Mecatrónica ' ? 'selected' : ''; ?>>Ingeniería Mecatrónica</option>
+        <option value="Ingeniería  Química" <?= $carrera == 'Ingeniería  Química' ? 'selected' : ''; ?>>Ingeniería Química</option>
         
           </select>
             </div>

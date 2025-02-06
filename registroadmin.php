@@ -3,6 +3,8 @@ require 'config.php';
 
 if (isset($_POST['submit'])) {
     $nombre = $_POST['nombre'];
+    $ap_p = $_POST['ap_p'];
+    $ap_m = $_POST['ap_m'];
     $num_con = $_POST['num_con'];
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
@@ -16,7 +18,7 @@ if (isset($_POST['submit'])) {
     } else {
         if ($contraseña == $confirmcontraseña) {
             $hashedPassword = password_hash($contraseña, PASSWORD_BCRYPT);
-            $query = "INSERT INTO usuarios (num_con, nombre, contrasena, rol, email, carrera) VALUES ('$num_con', '$nombre', '$hashedPassword', '$rol', '$email', '$carrera')";
+            $query = "INSERT INTO usuarios (num_con, nombre, ap_p, ap_m ,contrasena, rol, email, carrera) VALUES ('$num_con', '$nombre', '$ap_p', '$ap_m', '$hashedPassword', '$rol', '$email', '$carrera')";
             mysqli_query($conn, $query);
             echo "<script>alert('Registro exitoso');</script>";
         } else {
@@ -153,6 +155,12 @@ if (isset($_POST['submit'])) {
         <h2 class="text-center">Registro de Administrador</h2>
         <label for="nombre">Nombre(s)</label>
         <input type="text" name="nombre" id="nombre" required>
+
+        <label for="nombre">Apellido Paterno</label>
+        <input type="text" name="ap_p" id="ap_p" required>
+
+        <label for="nombre">Apellido Materno</label>
+        <input type="text" name="ap_m" id="ap_m" required>
         
         <label for="num_con">Número de Empleado</label>
         <input type="text" name="num_con" id="num_con" required>
@@ -177,7 +185,7 @@ if (isset($_POST['submit'])) {
 <select id="carrera" name="carrera" class="form-select" style="display: none;" required>
     <option value="" disabled selected>Seleccione una carrera</option>
     <option value="Ingenieria en Electrónica">Ing. Electrónica</option>
-    <option value="Ingenieria en Sistemas de Computo">Ing. en Sistemas Computacionales</option>
+    <option value="Ingenieria en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
     <option value="Ingenieria en Gestión Empresarial">Ing. en Gestión Empresarial</option>
     <option value="Ingeniería en TICS">Ingeniería en Tecnologías de la Información y Comunicaciones</option>
     <option value="Contador Público">Contador Público</option>

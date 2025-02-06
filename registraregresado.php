@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ap_p = $_POST['ap_p'];
     $ap_m = $_POST['ap_m'];
     $email = $_POST['email_1'];
+    $carrera = $_POST['carrera'];
     $sexo = $_POST['sexo']; // Capturamos el valor del campo "sexo"
     $contraseña = $_POST['password'];
     $rol = 'Egresado'; // Asignamos el rol 'egre' automáticamente
@@ -21,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashedPassword = password_hash($contraseña, PASSWORD_BCRYPT); // Aseguramos el uso de BCRYPT
 
         // Insertamos los datos en la tabla usuarios
-        $queryUsuarios = "INSERT INTO usuarios (num_con, nombre, ap_p, ap_m, contrasena, rol, email) 
-                          VALUES ('$num_con', '$nombre', '$ap_p', '$ap_m', '$hashedPassword', '$rol', '$email')";
+        $queryUsuarios = "INSERT INTO usuarios (num_con, nombre, ap_p, ap_m, contrasena, rol, email, carrera) 
+                          VALUES ('$num_con', '$nombre', '$ap_p', '$ap_m', '$hashedPassword', '$rol', '$email', '$carrera')";
 
         if (mysqli_query($conn, $queryUsuarios)) {
             // Si se insertaron los datos en usuarios correctamente, hacemos el insert en datos
-            $queryDatos = "INSERT INTO datos (num_con, nombre, ap_p, ap_m, sexo, email_1) 
-                           VALUES ('$num_con', '$nombre', '$ap_p', '$ap_m', '$sexo', '$email')";
+            $queryDatos = "INSERT INTO datos (num_con, nombre, ap_p, ap_m, sexo, email_1, carrera) 
+                           VALUES ('$num_con', '$nombre', '$ap_p', '$ap_m', '$sexo', '$email', '$carrera')";
             if (mysqli_query($conn, $queryDatos)) {
                 echo "<script>alert('Registro exitoso'); window.location.href='login.php';</script>";
             } else {
