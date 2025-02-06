@@ -160,7 +160,7 @@ $totalRegistros = $result->num_rows;
                 <div class="row mt-3">
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-primary">Filtrar</button>
-                        <a href="exceladminc.php?carrera=<?= urlencode($carrera) ?>&anio=<?= urlencode($anio) ?>&sexo=<?= urlencode($sexo) ?>" 
+                        <a href="exceladminc.php?carrera=<?= urlencode($carreraUsuario) ?>&anio=<?= urlencode($anio) ?>&sexo=<?= urlencode($sexo) ?>" 
                         class="btn btn-success ms-2">Excel</a>
                     </div>
                 </div>

@@ -1,5 +1,10 @@
 <?php
 require 'config.php';
+session_start();
+if (!isset($_SESSION['num_con'])) {
+    header('Location: login.php');
+    exit;
+}
 
 if (isset($_POST['submit'])) {
     $nombre = $_POST['nombre'];

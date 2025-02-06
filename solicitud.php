@@ -1,14 +1,14 @@
 <?php
 require 'config.php';
 session_start();
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['num_con'])) {
     header('Location: login.php');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['num_con'])) {
     $num_con = mysqli_real_escape_string($conn, $_POST['num_con']);
-    $estado = ($_POST['action'] === 'autorizar') ? 'aceptar' : 'rechazar';
+    $estado = ($_POST['action'] === 'autorizar') ? 'Aceptar' : 'Rechazar';
     $observacion = isset($_POST['observacion']) ? mysqli_real_escape_string($conn, $_POST['observacion']) : '';
 
     // Actualizar la base de datos con la observación si fue rechazada

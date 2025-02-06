@@ -2,7 +2,7 @@
 require 'config.php'; // Asegúrate de que 'config.php' contiene la conexión a la base de datos
 session_start();
 
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['num_con'])) {
     header('Location: login.php');
     exit();
 }

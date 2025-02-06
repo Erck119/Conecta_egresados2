@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 session_start();
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['num_con'])) {
     header("Location: login.php");
     exit;
 }
