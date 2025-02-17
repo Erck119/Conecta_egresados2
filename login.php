@@ -132,16 +132,16 @@ if (isset($_SESSION['nombre'])) {
     <label for="carrera" class="form-label">Carrera</label>
     <select id="carrera" name="carrera" class="form-select" >
     <option value="" disabled selected>Seleccione una carrera</option>
-    <option value="Ingenieria en Electrónica">Ing. Electrónica</option>
-    <option value="Ingenieria en Sistemas Computacionales">Ing. en Sistemas Computacionales</option>
-    <option value="Ingenieria en Gestión Empresarial">Ing. en Gestión Empresarial</option>
-    <option value="Ingeniería en TICS">Ingeniería en Tecnologías de la Información y Comunicaciones</option>
+    <option value="Ingenieria en Electronica">Ingenieria en Electronica</option>
+    <option value="Ingenieria en Sistemas Computacionales">Ingenieria en Sistemas Computacionales</option>
+    <option value="Ingenieria en Gestión Empresarial">Ingenieria en Gestion Empresarial</option>
+    <option value="Ingeniería en TICS">Ingenieria en Tecnologias de la Información y Comunicaciones</option>
     <option value="Contador Público">Contador Público</option>
-    <option value="Ingeniería en Industrial">Ing. Industrial</option>
-    <option value="Ingeniería en Logística">Ing. en Logística</option>
-    <option value="Ingeniería en Administración">Ing. en Administración</option>
-    <option value="Ingeniería en Mecatrónica">Ing. Mecatrónica</option>
-    <option value="Ingeniería en Química">Ing. Química</option>
+    <option value="Ingeniería en Industrial">Ingenieria Industrial</option>
+    <option value="Ingeniería en Logística">Ingenieria en Logística</option>
+    <option value="Ingeniería en Administración">Ingenieria en Administracion</option>
+    <option value="Ingeniería en Mecatrónica">Ingenieria Mecatrónica</option>
+    <option value="Ingeniería en Química">Ingenieria Química</option>
           </select>
 
     <button type="submit" name="register" class="btn btn-primary w-100" style="background-color: #800020; border-color: #800020;">Registrarse</button>

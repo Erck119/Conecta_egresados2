@@ -371,21 +371,21 @@ if (isset($_SESSION['num_con'])) {
 <div class="mb-3">
     <label for="carrera" class="form-label">Carrera</label>
     <select id="carrera" name="carrera" class="form-select" >
-        <option value=""></option>
-        <option value="Ingenieria en Electrónica" <?php echo ($carrera == "Ingenieria en Electrónica") ? 'selected' : ''; ?>>Ingenieria Electrónica</option>
-        <option value="Ingenieria en Informática" <?= $carrera == 'Ingenieria en Informática' ? 'selected' : ''; ?>>Ingeniería en Informática</option>
-        <option value="Licenciatura en Informatica" <?= $carrera == 'Licenciatura en Informatica' ? 'selected' : ''; ?>>Licenciatura en Informática</option>
-        <option value="Licenciatura en Contador Publico" <?= $carrera == 'Licenciatura en Contador Publico' ? 'selected' : ''; ?>>Licenciatura en Contador Público</option>
-        <option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingenieria en Sistemas Computacionales' ? 'selected' : ''; ?>>Ingeniería en Sistemas Computacionales</option>
-        <option value="Ingenieria en Gestion Empresarial" <?= $carrera == 'Ingenieria en Gestion Empresarial' ? 'selected' : ''; ?>>Ingeniería en Gestion Empresarial</option>
-        <option value="Ingeniería en Tecnologías de la Información y Comunicacionesl" <?= $carrera == 'Ingeniería en Tecnologías de la Información y Comunicacionesl' ? 'selected' : ''; ?>>Ingeniería en Tecnologías de la Información y Comunicaciones</option>
-        <option value="Contador Público" <?= $carrera == 'Contador Público' ? 'selected' : ''; ?>>Contador Público</option>
-        <option value="Ingeniería Industrial" <?= $carrera == 'Ingeniería Industrial' ? 'selected' : ''; ?>>Ingeniería Industrial</option>
-        <option value="Ingeniería en Logística" <?= $carrera == 'Ingeniería en Logística ' ? 'selected' : ''; ?>>Ingeniería en Logística </option>
-        <option value="Ingeniería en Administración" <?= $carrera == 'Ingeniería en Administración ' ? 'selected' : ''; ?>>Ingeniería en Administración </option>
-        <option value="Ingeniería Mecatrónica" <?= $carrera == 'Ingeniería Mecatrónica ' ? 'selected' : ''; ?>>Ingeniería Mecatrónica</option>
-        <option value="Ingeniería  Química" <?= $carrera == 'Ingeniería  Química' ? 'selected' : ''; ?>>Ingeniería Química</option>
-        
+    <option value=""></option>
+<option value="Ingenieria en Electronica" <?= $carrera == 'Ingenieria en Electronica' ? 'selected' : ''; ?>>Ingenieria en Electronica</option>
+<option value="Ingenieria en Informatica" <?= $carrera == 'Ingenieria en Informatica' ? 'selected' : ''; ?>>Ingenieria en Informatica</option>
+<option value="Licenciatura en Informatica" <?= $carrera == 'Licenciatura en Informatica' ? 'selected' : ''; ?>>Licenciatura en Informatica</option>
+<option value="Licenciatura en Contador Publico" <?= $carrera == 'Licenciatura en Contador Publico' ? 'selected' : ''; ?>>Licenciatura en Contador Publico</option>
+<option value="Ingenieria en Sistemas Computacionales" <?= $carrera == 'Ingenieria en Sistemas Computacionales' ? 'selected' : ''; ?>>Ingenieria en Sistemas Computacionales</option>
+<option value="Ingenieria en Gestion Empresarial" <?= $carrera == 'Ingenieria en Gestion Empresarial' ? 'selected' : ''; ?>>Ingenieria en Gestion Empresarial</option>
+<option value="Ingenieria en Tecnologias de la Informacion y Comunicaciones" <?= $carrera == 'Ingenieria en Tecnologias de la Informacion y Comunicaciones' ? 'selected' : ''; ?>>Ingenieria en Tecnologias de la Informacion y Comunicaciones</option>
+<option value="Contador Publico" <?= $carrera == 'Contador Publico' ? 'selected' : ''; ?>>Contador Publico</option>
+<option value="Ingenieria Industrial" <?= $carrera == 'Ingenieria Industrial' ? 'selected' : ''; ?>>Ingenieria Industrial</option>
+<option value="Ingenieria en Logistica" <?= $carrera == 'Ingenieria en Logistica' ? 'selected' : ''; ?>>Ingenieria en Logistica</option>
+<option value="Ingenieria en Administracion" <?= $carrera == 'Ingenieria en Administracion' ? 'selected' : ''; ?>>Ingenieria en Administracion</option>
+<option value="Ingenieria Mecatronica" <?= $carrera == 'Ingenieria Mecatronica' ? 'selected' : ''; ?>>Ingenieria Mecatronica</option>
+<option value="Ingenieria Quimica" <?= $carrera == 'Ingenieria Quimica' ? 'selected' : ''; ?>>Ingenieria Quimica</option>
+
           </select>
             </div>
 
