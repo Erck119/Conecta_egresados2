@@ -88,7 +88,7 @@
                         <i class="zmdi zmdi-case"></i> Documentación
                     </a>
                     <ul class="dropdown-menu" style="background-color: #a62346;">
-                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Formulario</a></li>
+                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Datos</a></li>
                         <li><a class="dropdown-item text-white" href="subdocs.php"><i class="zmdi zmdi-book"></i> Documentos</a></li>
                         <li><a class="dropdown-item text-white" href="descargar.php"><i class="zmdi zmdi-download"></i> Descargar Credencial</a></li>
                     </ul>
@@ -127,27 +127,59 @@
 
     <!-- Panel -->
     <div class="container-fluid custom-container">
-        <h1 class="text-center">TU DOCUMENTO AÚN NO HA SIDO AUTORIZADO</h1>
-        <fieldset>
-            <legend><i class="zmdi zmdi-account-box"></i> Extensión y Seguimiento de Egresados</legend>
-            <p>El proceso de atención del Tecnológico de Estudios Superiores de Cuautitlán Izcalli proporciona este servicio de manera gratuita en apoyo a nuestros egresados.</p>
-            <legend>Información de contacto</legend>
-            <p>
-                Lic. Karina Fabiola Jiménez Olvera<br>
-                Jefa del departamento de Extensión y Seguimiento de Egresados<br>
-                Tel. 5558643170 Ext.406<br>
-                Correo: seguimientoegresados@cuautitlan.tecnm.mx
-            </p>
-            <legend>Ubicación</legend>
-            <p>
-                Secretaría de Educación<br>
-                Av. Nopaltepec s/n Fracción la Coyotera del Ejido San Antonio Cuamatla<br>
-                Cuautitlán Izcalli, Estado de México C.P. 54748
-            </p>
-        </fieldset>
-        <img src="images/logo_TESCI_2020.png" alt="Logo TESCI" style="width: 60%; height: auto;">
-
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="text-danger fw-bold">TU DOCUMENTO AÚN NO HA SIDO AUTORIZADO</h1>
+        </div>
     </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <fieldset class="border p-4 rounded shadow">
+                <legend class="fw-bold text">
+                    <i class="zmdi zmdi-account-box"></i> Extensión y Seguimiento de Egresados
+                </legend>
+                <p>
+                    El proceso de atención del Tecnológico de Estudios Superiores de Cuautitlán Izcalli proporciona este servicio de manera gratuita en apoyo a nuestros egresados.
+                </p>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <fieldset class="border p-4 rounded shadow">
+                <legend class="fw-bold text">Información de contacto</legend>
+                <p>
+                    <strong >Lic. Karina Fabiola Jiménez Olvera</strong><br>
+                    Jefa del departamento de Extensión y Seguimiento de Egresados<br>
+                    <strong>Tel:</strong> 5558643170 Ext. 406<br>
+                    <strong>Correo:</strong> seguimientoegresados@cuautitlan.tecnm.mx
+                </p>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <fieldset class="border p-4 rounded shadow">
+                <legend class="fw-bold text">Ubicación</legend>
+                <p>
+                    <strong>Secretaría de Educación</strong><br>
+                    Av. Nopaltepec s/n Fracción la Coyotera del Ejido San Antonio Cuamatla<br>
+                    Cuautitlán Izcalli, Estado de México C.P. 54748
+                </p>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6 text-center">
+            <img src="images/logo_TESCI_2020.png" alt="Logo TESCI" class="img-fluid w-75">
+        </div>
+    </div>
+</div>
+
 
     <!-- Footer -->
     <footer>

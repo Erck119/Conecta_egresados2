@@ -45,7 +45,7 @@ if (isset($_SESSION['num_con'])) {
         $stmtUpdate->bind_param("ssssssssssi", $nombre, $ap_p, $ap_m, $sexo, $email1, $tel1, $tel2, $cedula, $carrera, $ano_egre, $num_con);
 
         if ($stmtUpdate->execute()) {
-            echo "Datos actualizados correctamente.";
+            echo "Datoss actualizadsos correctamente.";
         } else {
             echo "Error al actualizar los datos: " . $conn->error;
         }
@@ -79,7 +79,7 @@ if (isset($_SESSION['num_con'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Formulario de Datos de Egresados</title>
+    <title>Formulario de Datoss de Egresadsos</title>
     <!-- Meta Tag para Hacer la Página Responsiva -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -271,7 +271,7 @@ if (isset($_SESSION['num_con'])) {
                         <i class="zmdi zmdi-case"></i> Documentación
                     </a>
                     <ul class="dropdown-menu" style="background-color: #a62346;">
-                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Formulario</a></li>
+                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Datos</a></li>
                         <li><a class="dropdown-item text-white" href="subdocs.php"><i class="zmdi zmdi-book"></i> Documentos</a></li>
                         <li><a class="dropdown-item text-white" href="descargar.php"><i class="zmdi zmdi-download"></i> Descargar Credencial</a></li>
                     </ul>
@@ -315,7 +315,7 @@ if (isset($_SESSION['num_con'])) {
 <div class="container">
      
 
-        <h1 class="text-center">Datos de Egresados</h1>
+        <h1 class="text-center">Datoss de Egresadsos</h1>
 
         <form method="POST" action="registrar.php" onsubmit="return validarFormulario();">
         <div class="mb-3">
@@ -324,16 +324,16 @@ if (isset($_SESSION['num_con'])) {
 </div>
 
 <div class="mb-3">
-    <label for="nombre" class="form-label">Nombre(s)</label>
+    <label for="nombre" class="form-label">Nombre(s) <span style="color: red;">*Datos obligatorios</span></label>
     <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" class="form-control" >
 </div>
 
 <div class="mb-3">
-    <label for="ap_p" class="form-label">Apellido Paterno</label>
+    <label for="ap_p" class="form-label">Apellido Paterno <span style="color: red;">*Datos obligatorios</span></label>
     <input type="text" id="ap_p" name="ap_p" value="<?php echo htmlspecialchars($ap_p); ?>" class="form-control" >
 </div>
 <div class="mb-3">
-    <label for="ap_m" class="form-label">Apellido Materno</label>
+    <label for="ap_m" class="form-label">Apellido Materno <span style="color: red;">*Datos obligatorios</span></label>
     <input type="text" id="ap_m" name="ap_m" value="<?php echo htmlspecialchars($ap_m); ?>" class="form-control" >
 </div>
 
@@ -347,19 +347,19 @@ if (isset($_SESSION['num_con'])) {
 
 </div>
 <div class="input-group">
-            <label for="tel_1">Celular</label>
+            <label for="tel_1">Celular <span style="color: red;">*Datos obligatorios</span></label>
             <input type="tel" id="tel_1" name="tel_1" value="<?php echo htmlspecialchars($tel1); ?>" placeholder="Número de 10 dígitos" required >
             <span id="icon_tel1" class="status-icon">✔</span>
         </div>
         <!-- Celular Alternativo -->
         <div class="input-group">
-            <label for="tel_2">Celular Alternativo</label>
+        <label for="tel_2">Celular Alternativo <span style="color: red;">*Datos obligatorios</span></label>
             <input type="tel" id="tel_2" name="tel_2" value="<?php echo htmlspecialchars($tel2); ?>" placeholder="Número de 10 dígitos"  required >
             <span id="icon_tel2" class="status-icon">✔</span>
         </div>
         <!-- Correo Electrónico -->
         <div class="input-group">
-            <label for="email_1">Correo Electrónico</label>
+            <label for="email_1">Correo Electrónico <span style="color: red;">*Datos obligatorios</span></label>
             <input type="email" id="email_1" name="email_1" value="<?php echo htmlspecialchars($email1); ?>" placeholder="Correo válido" required >
             <span id="icon_email1" class="status-icon">✔</span>
         </div>
@@ -438,7 +438,7 @@ if (isset($_SESSION['num_con'])) {
     </div>
 
     <footer>
-    <p>© 2024 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
+    <p>© 2025 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
 </footer>
 
  <script>

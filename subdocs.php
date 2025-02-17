@@ -238,7 +238,7 @@ $estadoDocumentos = $resultado->fetch_assoc() ?: ['carta_termino' => null, 'bole
                         <i class="zmdi zmdi-case"></i> Documentación
                     </a>
                     <ul class="dropdown-menu" style="background-color: #a62346;">
-                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Formulario</a></li>
+                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Datos</a></li>
                         <li><a class="dropdown-item text-white" href="subdocs.php"><i class="zmdi zmdi-book"></i> Documentos</a></li>
                         <li><a class="dropdown-item text-white" href="descargar.php"><i class="zmdi zmdi-download"></i> Descargar Credencial</a></li>
                     </ul>
@@ -314,7 +314,7 @@ $estadoDocumentos = $resultado->fetch_assoc() ?: ['carta_termino' => null, 'bole
 </form>
 
 <footer>
-    <p>©️ 2024 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
+<p>© 2025 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
 </footer>
 
 <!-- Bootstrap JS -->

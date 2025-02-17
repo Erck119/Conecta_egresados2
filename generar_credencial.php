@@ -66,13 +66,13 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
         $pdf->Cell(190, 10, "$nombre $ap_p $ap_m", 0, 1, 'C');
 
         $pdf->SetXY(42, 170);
-        $pdf->Cell(190, 10, "$carrera", 0, 1, 'C');
+        $pdf->Cell(180, 10, "$carrera", 0, 1, 'C');
 
         $pdf->SetXY(10, 200);
-        $pdf->Cell(190, 10, "$ano_egre", 0, 1, 'C');
+        $pdf->Cell(220, 2, "$ano_egre", 0, 1, 'C');
 
         $pdf->SetXY(10, 250);
-        $pdf->Cell(190, 10, "$num_con", 0, 1, 'C');
+        $pdf->Cell(220, 2, "$num_con", 0, 1, 'C');
 
         // Cargar la imagen (se usará la predeterminada si no se encuentra ninguna imagen)
         $pdf->Image($foto, 59, 42, 94, 91); // Ajustar según diseño

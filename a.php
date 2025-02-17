@@ -182,7 +182,7 @@ if (isset($_SESSION['nombre'])) {
                 <h2 class="text-center">ADMINISTRADOR</h2>
                 <h4>Objetivo</h4>
                 <p>
-                Realizar los programas de vinculación con los sectores de la sociedad para garantizar el cumplimiento de los programas de residencias profesionales y consolidar el desarrollo tecnológico de las y los estudiantes, egresadas y egresados, mediante la recomendación de las y los alumnos destacados ante instituciones de los sectores, públicos, social o privado relacionadas con el mercado laboral.
+                Permitir la generación de la credencial digital para los egresados que la soliciten, teniendo el poder para visualizar los documentos solicitados por la institución para dicho proceso y de igual forma tener un control digital de los egresados del Tecnológico de Estudios Superiores de Cuautitlán Izcalli, poder realizar el registro para los jefes de carrera de la institución y ampliar el número de administradores en la plataforma.
                 </p>
                 <div class="text-center">
                     <img src="images/rino_plasta_negro.png" alt="Logo" width="25%">
@@ -193,18 +193,14 @@ if (isset($_SESSION['nombre'])) {
         <!-- Contenedor derecho -->
         <div class="col-md-6">
             <div class="custom-container">
-                <h4 class="text-center">Otra Información</h4>
+                <h2 class="text-center">JEFE DE CARRERA</h2>
+                <h4>Objetivo</h4>
                 <p>
-                    Aquí puedes agregar contenido adicional relacionado con el seguimiento de egresados, como anuncios, noticias, eventos o información importante sobre trámites académicos.
+                    Poder visualizar los datos de los egresados registrados correspondientes a la carrera del jefe en sesión paara que se pueda tener un control si es que se requiere.
                 </p>
-                <h5>Ejemplo de información:</h5>
-                <ul>
-                    <li>Convocatorias a programas de titulación.</li>
-                    <li>Eventos para egresados, como ferias de empleo.</li>
-                    <li>Acceso a bibliotecas digitales para egresados.</li>
-                </ul>
+                
                 <div class="text-center">
-                    <img src="images/event_placeholder.png" alt="Imagen adicional" width="50%">
+                    <img src="images/rino_plasta_negro.png" alt="Logo" width="25%">
                 </div>
             </div>
         </div>

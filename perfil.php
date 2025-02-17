@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
 $stmt->close();
 
 // Verificar si el campo 'carrera' está vacío
-if (empty($carrera)) {
+if (empty($ano_egre)) {
     // Redirigir a una página amigable de registro o edición si el campo 'carrera' está vacío
     redirectWithStyle(
         "Por favor, completa el formulario para acceder a este apartado.",
@@ -355,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <i class="zmdi zmdi-case"></i> Documentación
                     </a>
                     <ul class="dropdown-menu" style="background-color: #a62346;">
-                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Formulario</a></li>
+                        <li><a class="dropdown-item text-white" href="registro.php"><i class="zmdi zmdi-labels"></i> Datos</a></li>
                         <li><a class="dropdown-item text-white" href="subdocs.php"><i class="zmdi zmdi-book"></i> Documentos</a></li>
                         <li><a class="dropdown-item text-white" href="descargar.php"><i class="zmdi zmdi-download"></i> Descargar Credencial</a></li>
                     </ul>
@@ -400,7 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Contenedor Izquierdo: Foto del Egresado -->
         <div class="col-md-4">
             <div class="custom-container">
-                <h2 class="text-center">Foto del Egresado</h2>
+                <h2 class="text-center">Foto de perfil</h2>
                 <div class="profile-img text-center">
                     <?php if (!empty($profileImagePath)): ?>
                         <img src="<?php echo htmlspecialchars($profileImagePath); ?>" alt="Foto del Egresado">
@@ -448,7 +448,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <footer>
-    <p>© 2024 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
+<p>© 2025 Tecnológico de Estudios Superiores de Cuautitlán Izcalli. Todos los derechos reservados.</p>
 </footer>
 </body>
 <!-- Bootstrap CSS -->

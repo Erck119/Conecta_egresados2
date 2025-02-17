@@ -145,7 +145,7 @@ echo "<script>
                         <i class="zmdi zmdi-case"></i> Documentación
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownEgresados">
-                        <li><a class="dropdown-item" href="registro.php"><i class="zmdi zmdi-labels"></i> Formulario</a></li>
+                        <li><a class="dropdown-item" href="registro.php"><i class="zmdi zmdi-labels"></i> Datos</a></li>
                         <li><a class="dropdown-item" href="subdocs.php"><i class="zmdi zmdi-book"></i> Documentos</a></li>
                         <li><a class="dropdown-item" href="descargar.php"><i class="zmdi zmdi-download"></i> Descargar Credencial</a></li>
                     </ul>
@@ -209,8 +209,8 @@ echo "<script>
             <div class="custom-container">
                 <h4 class="text-center">VISTA PREVIA DE CREDENCIAL</h4>
                 <div class="text-center d-flex justify-content-center align-items-center gap-6">
-                    <img src="images/1.jpg" alt="Imagen adicional" class="img-fluid" style="max-width: 40%; margin-right: 20px; border: 2px solid black; border-radius: 10px;">
-                    <img src="images/2.jpg" alt="Imagen adicional" class="img-fluid" style="max-width: 40%; margin-left: 20px; border: 2px solid black; border-radius: 10px;">
+                    <img src="images/1.png" alt="Imagen adicional" class="img-fluid" style="max-width: 40%; margin-right: 20px; border: 2px solid black; border-radius: 10px;">
+                    <img src="images/2.png" alt="Imagen adicional" class="img-fluid" style="max-width: 40%; margin-left: 20px; border: 2px solid black; border-radius: 10px;">
                 </div>
             </div>
         </div>
